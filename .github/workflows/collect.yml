@@ -1,0 +1,31 @@
+name: Collect ROB RUN Steam players
+on:
+  schedule:
+    - cron: '3,13,23,33,43,53 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: player-observations
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node update.mjs
+      - name: Save observation
+        run: |
+          git config user.name 'ROB RUN data collector'
+          git config user.email 'actions@users.noreply.github.com'
+          git add players.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record Steam player observation'
+            git push
+          fi
+      - name: Check upstream collection
+        run: node -e "const d=require('./players.json'); if(!d.lastAttemptOk)process.exit(1)"

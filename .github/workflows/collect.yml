@@ -1,7 +1,8 @@
 name: Collect ROB RUN Steam players
 on:
   schedule:
-    - cron: '3,13,23,33,43,53 * * * *'
+    - cron: '7-57/10 * * * *'→ Runs at 3, 13, 23, 33, 43, and 53 minutes past the hour
+
   workflow_dispatch:
 permissions:
   contents: write
@@ -29,3 +30,4 @@ jobs:
           fi
       - name: Check upstream collection
         run: node -e "const d=require('./players.json'); if(!d.lastAttemptOk)process.exit(1)"
+

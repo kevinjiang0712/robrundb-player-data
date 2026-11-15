@@ -1,8 +1,7 @@
-# ROB RUN player observations
-Public, timestamped observations of Steam app **4262460** for [ROB RUN Wiki](https://www.robrundb.wiki/guide/rob-run-steam-charts).
+# Historical ROB RUN player observations
 
-Source: Steam's public `ISteamUserStats/GetNumberOfCurrentPlayers/v1` endpoint. This counts game-wide concurrent players excluding users offline in Steam; it is not a per-server health signal.
+This repository is retained as historical data. Its GitHub Actions workflow was disabled on 2026-11-15 after scheduled events failed to appear during verification. It is no longer the production data source.
 
-GitHub Actions is scheduled at minutes 7,17,27,37,47,57 of each hour (UTC). Scheduled execution and the raw file cache can be delayed. The website labels samples older than 20 minutes stale. Failed fetches retain the last valid observation and set `lastAttemptOk` false; they never add a zero sample. The dataset retains the latest 48 hours (up to 300 observations). Git history retains previous published observations. No player identities, user reports, account credentials or private site source are stored here.
+Production observations are collected automatically by Cloudflare Cron every ten minutes and stored in a Durable Object. Read https://www.robrundb.wiki/api/players or view https://www.robrundb.wiki/guide/rob-run-steam-charts . The public endpoint does not trigger sampling.
 
-`workflow_dispatch` supports manual recovery. To pause, disable the collection workflow in Actions. To reproduce locally: Node 22+, `node update.mjs`.
+Existing files remain public Steam app 4262460 observations and legacy collector code. There are no credentials or private website source files here.
